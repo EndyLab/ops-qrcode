@@ -3,22 +3,61 @@
   <title>Endy Lab QR Code Maker</title>
   <script src="./qrcode.js"></script>
   <script src="./qart-lib.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: monospace, sans-serif;
+    }
+
+    .container {
+      width: 400px;
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    h1, .text {
+      width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    input {
+      height: 20px;
+      border: 1px solid black;
+      background-color: white;
+    }
+
+    .logo-image {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-  <img src="./get-help.png">
-  <div id="qart"></div>
+  <div class="container">
+    <div class="text"><p id="title">Endy Lab</p></div>
+    <div id="qart">Enter a URL: <input id="url" type="text"><input type="button" value="go" onclick="makeQR();"></div>
+    <div class="text"><p>Scan for instructions</p></div>
+  </div>
 
+  <img class="logo-image" src="./get-help.png">
   <script>
     // directly appending canvas to the document
-    new QArt({
-      value: "hi",
-      imagePath: "./get-help.png",
-      filter: "color",
-      version: 10,
-      fillType: "scale_to_fit",
-      size: 380
-  	}).make(document.getElementById('qart'));
+    function makeQR() {
+      $('#title').text($('#url').val());
+
+      new QArt({
+        value: $('#url').val(),
+        imagePath: "./get-help.png",
+        filter: "color",
+        version: 10,
+        fillType: "scale_to_fit",
+        size: 380
+    	}).make(document.getElementById('qart'));
+    }
   </script>
 
 </body>
