@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Endy Lab QR Code Maker</title>
-  <script src="./qrcode.js"></script>
+  <script src="./qrcode.min.js"></script>
   <script src="./qart-lib.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -12,7 +12,7 @@
 
     .container {
       width: 400px;
-      border: 2px solid black;
+      border: 0px solid black;
       border-radius: 5px;
       padding: 10px;
     }
@@ -31,9 +31,20 @@
       display: inline;
     }
 
+    #qart canvas {
+      display: none;
+    }
+
+    #qart img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     input {
       height: 20px;
+      width: 100%;
       border: 1px solid black;
+      margin-bottom: -1px;
       background-color: white;
     }
 
@@ -46,24 +57,31 @@
 <body>
   <div class="container">
     <div class="text"><p id="title">Endy Lab</p></div>
-    <div id="qart">Enter a URL: <input id="url" type="text"><input type="button" value="go" onclick="makeQR();"></div>
+    <div id="entry">
+      <input id="name" type="text" value="device name" onfocus="this.value = ''"><br>
+      <input id="url" type="text" value="url" onfocus="this.value = ''"><br>
+      <input type="button" value="go" onclick="makeQR();"></div>
+    <div id="qart"></div>
     <div class="text"><p>Scan for instructions</p></div>
   </div>
 
   <img class="logo-image" src="./get-help.png">
   <script>
-    // directly appending canvas to the document
-    function makeQR() {
-      $('#title').text($('#url').val());
+    var qrcode = new QRCode("qart");
+    qrcode.clear();
 
-      new QArt({
-        value: $('#url').val(),
-        imagePath: "./get-help.png",
-        filter: "color",
-        version: 5,
-        fillType: "scale_to_fit",
-        size: 380
-    	}).make(document.getElementById('qart'));
+    function makeQR() {
+      qrcode.makeCode(document.getElementById('url').value, {
+        text: document.getElementById('url').value,
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('title').innerHTML = document.getElementById('name').value;
+      document.getElementById('entry').style = "display: none;"
     }
   </script>
 
