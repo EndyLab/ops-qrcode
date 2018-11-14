@@ -56,6 +56,7 @@
 
 <body>
   <div class="container">
+    <h1>Get Help</h1>
     <div class="text"><p id="title">Endy Lab</p></div>
     <div id="entry">
       <input id="name" type="text" value="device name" onfocus="this.value = ''"><br>
@@ -83,6 +84,11 @@
       document.getElementById('title').innerHTML = document.getElementById('name').value;
       document.getElementById('entry').style = "display: none;"
     }
+    
+    var url = new URL(window.location.href);
+    if (url.searchParams.has("name")) document.getElementById('name').value = url.searchParams.get("name");
+    if (url.searchParams.has("url")) document.getElementById('url').value = url.searchParams.get("url");
+    if (url.searchParams.has("name") && url.searchParams.has("url")) makeQR();
   </script>
 
 </body>
