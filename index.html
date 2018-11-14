@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title>Endy Lab QR Code Maker</title>
+  <script src="./qrcode.js"></script>
+  <script src="./qart-lib.js"></script>
+</head>
+
+<body>
+  <div id="qart"></div>
+
+  <script>
+    // directly appending canvas to the document
+    new QArt({
+      value: "hi",
+      imagePath: './get-help.png',
+      filter: "color",
+      version: 10,
+      fillType: "scale_to_fit",
+      size: 380
+  	}).make(document.getElementById('qart'));
+  </script>
+
+</body>
+
+</html>
